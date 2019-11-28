@@ -74,7 +74,7 @@ const HistoryQuestionsSlider = ({ className }: { className?: string }) => {
       width={['100vw', '40vw']}
       height="100vh"
     >
-      <div id="marquee">{items}</div>
+      <Box id="marquee">{items}</Box>
       <Box id="marquee2" mt={6}>
         {items}
       </Box>
@@ -85,10 +85,11 @@ const HistoryQuestionsSlider = ({ className }: { className?: string }) => {
 export default styled(HistoryQuestionsSlider)`
   #marquee,
   #marquee2 {
-    animation: ${marquee} 300s linear infinite;
+    padding-top: 100vh;
+    animation: ${marquee} 50s linear infinite;
   }
 
   #marquee2 {
-    animation-delay: 2.5s;
+    animation-delay: 25s;
   }
 `
