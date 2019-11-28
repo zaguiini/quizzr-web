@@ -81,7 +81,6 @@ const model: StoreModel = {
 
       return () => {
         cancellationToken.cancel()
-        dispatch.deleteQuiz({ id })
       }
     }),
   },
