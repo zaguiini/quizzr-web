@@ -10,8 +10,8 @@ import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
 const model: StoreModel = {
-  setOngoingQuiz: action((state, id) => {
-    state.ongoingQuiz = id
+  setCurrentQuiz: action((state, id) => {
+    state.currentQuiz = id
   }),
 
   quizzes: {

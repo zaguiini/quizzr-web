@@ -24,6 +24,7 @@ const QuizPage = () => {
     <Placeholder
       ready={!get(quiz, 'isLoading', true)}
       fallback={<Information>Loading questions...</Information>}
+      delay={350}
     >
       {hasData ? (
         <Quiz />

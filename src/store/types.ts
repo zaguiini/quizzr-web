@@ -15,7 +15,7 @@ export interface Quiz {
 }
 
 interface StoreData {
-  ongoingQuiz?: string
+  currentQuiz?: string
   quizzes: {
     history: {
       [id: string]: Quiz
@@ -24,7 +24,7 @@ interface StoreData {
 }
 
 interface StoreActions {
-  setOngoingQuiz: Action<StoreData, string | undefined>
+  setCurrentQuiz: Action<StoreData, string | undefined>
   quizzes: {
     setLoading: Action<StoreData['quizzes'], { id: string; isLoading: boolean }>
     setError: Action<StoreData['quizzes'], { id: string; error?: string }>

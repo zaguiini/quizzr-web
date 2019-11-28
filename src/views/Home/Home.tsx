@@ -7,7 +7,7 @@ import { useStoreState } from 'store/store'
 import { useActionHandlers } from 'hooks'
 
 const Home = () => {
-  const ongoingQuiz = useStoreState((store) => store.ongoingQuiz)
+  const currentQuiz = useStoreState((store) => store.currentQuiz)
   const { startQuiz, resumeQuiz } = useActionHandlers()
 
   const handleAction = React.useCallback(
@@ -31,7 +31,7 @@ const Home = () => {
     >
       <Hero />
       <Box marginTop={12} display="flex">
-        <CallToActions onAction={handleAction} hasOngoingQuiz={!!ongoingQuiz} />
+        <CallToActions onAction={handleAction} hasOngoingQuiz={!!currentQuiz} />
       </Box>
     </Box>
   )

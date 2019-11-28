@@ -12,13 +12,13 @@ interface UseQuiz {
 export const useQuiz = ({ id }: UseQuiz = {}) => {
   const setAnswer = useStoreActions((store) => store.quizzes.setAnswer)
 
-  const { questions, ongoingQuiz } = useStoreState((state) => ({
+  const { questions, currentQuiz } = useStoreState((state) => ({
     questions: get(
       state,
-      `quizzes.history.${id || state.ongoingQuiz}.data.questions`,
+      `quizzes.history.${id || state.currentQuiz}.data.questions`,
       []
     ) as QuizQuestion[],
-    ongoingQuiz: (id || state.ongoingQuiz) as string,
+    currentQuiz: (id || state.currentQuiz) as string,
   }))
 
   const currentQuestion = React.useMemo(() => {
@@ -42,12 +42,12 @@ export const useQuiz = ({ id }: UseQuiz = {}) => {
   const registerAnswer = React.useCallback(
     (answer: boolean) => {
       setAnswer({
-        quizId: ongoingQuiz,
+        quizId: currentQuiz,
         questionId: currentQuestion.index,
         answer,
       })
     },
-    [setAnswer, ongoingQuiz, currentQuestion.index]
+    [setAnswer, currentQuiz, currentQuestion.index]
   )
 
   const rightAnswers = React.useMemo(
@@ -66,7 +66,7 @@ export const useQuiz = ({ id }: UseQuiz = {}) => {
     isValid: questions.length !== 0,
     isFinished: currentQuestion.index === -1,
     questions,
-    ongoingQuiz,
+    currentQuiz,
     currentQuestion,
     totalQuestions,
     rightAnswers,
@@ -76,18 +76,18 @@ export const useQuiz = ({ id }: UseQuiz = {}) => {
 }
 
 export const useActionHandlers = () => {
-  const ongoingQuiz = useStoreState((store) => store.ongoingQuiz)
-  const setOngoingQuiz = useStoreActions((store) => store.setOngoingQuiz)
+  const currentQuiz = useStoreState((store) => store.currentQuiz)
+  const setCurrentQuiz = useStoreActions((store) => store.setCurrentQuiz)
   const history = useHistory()
 
   const startQuiz = () => {
     const quiz = shortId.generate()
-    setOngoingQuiz(quiz)
+    setCurrentQuiz(quiz)
     history.push(`/quiz/${quiz}`)
   }
 
   const resumeQuiz = () => {
-    history.push(`/quiz/${ongoingQuiz}`)
+    history.push(`/quiz/${currentQuiz}`)
   }
 
   return {
