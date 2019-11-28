@@ -14,16 +14,20 @@ const QuizPage = () => {
     quiz: state.quizzes.history[id],
   }))
 
-  const fetchQuiz = useStoreActions((actions) => actions.quizzes.fetchQuiz)
+  const { fetchQuiz, setCurrentQuiz } = useStoreActions((actions) => ({
+    fetchQuiz: actions.quizzes.fetchQuiz,
+    setCurrentQuiz: actions.setCurrentQuiz,
+  }))
   const cancel = React.useRef(noop)
 
   React.useEffect(() => {
+    setCurrentQuiz(id)
     cancel.current = fetchQuiz({ id })
 
     return () => {
       cancel.current()
     }
-  }, [fetchQuiz, id])
+  }, [fetchQuiz, id, setCurrentQuiz])
 
   const hasData = get(quiz, 'data.questions', []).length
 

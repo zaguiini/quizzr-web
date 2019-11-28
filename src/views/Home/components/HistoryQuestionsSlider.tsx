@@ -86,10 +86,10 @@ export default styled(HistoryQuestionsSlider)`
   #marquee,
   #marquee2 {
     padding-top: 100vh;
-    animation: ${marquee} 50s linear infinite;
+    animation: ${marquee} 300s linear infinite;
   }
 
   #marquee2 {
-    animation-delay: 25s;
+    animation-delay: 150s;
   }
 `

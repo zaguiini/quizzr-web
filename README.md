@@ -23,4 +23,4 @@ Hell yeah! You can even install it to run locally instead of running in your bro
 
 ### Answer slider
 
-After you complete a trivia, there's a nice cool slider in the right hand side of the home screen -- or as the background if you're on mobile!
+After you complete at least one trivia, there's a nice cool slider in the right hand side of the home screen -- or as the background if you're on mobile!

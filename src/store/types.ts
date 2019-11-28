@@ -48,7 +48,7 @@ interface StoreActions {
       StoreData['quizzes'] & StoreActions['quizzes'],
       { id: string },
       any,
-      StoreData['quizzes']
+      StoreData
     >
   }
 }

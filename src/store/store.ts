@@ -1,3 +1,4 @@
+import { QuizQuestion } from 'store/types'
 import { StoreModel } from './types'
 import { transformQuizQuestion, fetchQuiz } from '../service'
 import { createStore, createTypedHooks, action, thunk } from 'easy-peasy'
@@ -7,6 +8,7 @@ import setWith from 'lodash/setWith'
 import map from 'lodash/map'
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
+import noop from 'lodash/noop'
 
 const model: StoreModel = {
   setCurrentQuiz: action((state, id) => {
@@ -36,7 +38,16 @@ const model: StoreModel = {
       setWith(state, `history.${id}.isLoading`, isLoading, Object)
     }),
 
-    fetchQuiz: thunk((dispatch, { id }) => {
+    fetchQuiz: thunk((dispatch, { id }, { getStoreState }) => {
+      const { quizzes } = getStoreState()
+
+      if (
+        get(quizzes, `history.${id}.data.questions`, [] as QuizQuestion[])
+          .length > 0
+      ) {
+        return noop
+      }
+
       dispatch.setQuiz({
         id,
         data: {
