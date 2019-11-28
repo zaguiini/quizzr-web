@@ -1,12 +1,12 @@
 import React from 'react'
 import { Box, Text } from '@chakra-ui/core'
 
-interface LoadingProps {
+interface InformationProps {
   children: React.ReactNode
   secondary?: React.ReactNode
 }
 
-const Loading = ({ children, secondary = null }: LoadingProps) => {
+const Information = ({ children, secondary = null }: InformationProps) => {
   return (
     <Box
       display="flex"
@@ -16,10 +16,12 @@ const Loading = ({ children, secondary = null }: LoadingProps) => {
       flexDirection="column"
       justifyContent="Center"
     >
-      <Text fontSize="2xl">{children}</Text>
+      <Text textAlign="center" fontSize="2xl">
+        {children}
+      </Text>
       {secondary && <Box mt={4}>{secondary}</Box>}
     </Box>
   )
 }
 
-export default Loading
+export default Information
