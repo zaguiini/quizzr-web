@@ -1,3 +1,5 @@
+import { useHistory } from 'react-router-dom'
+import shortId from 'short-uuid'
 import React from 'react'
 import get from 'lodash/get'
 import { useStoreState, useStoreActions } from 'store/store'
@@ -9,7 +11,6 @@ interface UseQuiz {
 
 export const useQuiz = ({ id }: UseQuiz = {}) => {
   const setAnswer = useStoreActions((store) => store.quizzes.setAnswer)
-  const setOngoingQuiz = useStoreActions((store) => store.setOngoingQuiz)
 
   const { questions, ongoingQuiz } = useStoreState((state) => ({
     questions: get(
@@ -61,12 +62,6 @@ export const useQuiz = ({ id }: UseQuiz = {}) => {
     [questions]
   )
 
-  React.useEffect(() => {
-    if (progress === 100 && ongoingQuiz) {
-      setOngoingQuiz(undefined)
-    }
-  }, [ongoingQuiz, progress, setOngoingQuiz])
-
   return {
     isValid: questions.length !== 0,
     isFinished: currentQuestion.index === -1,
@@ -77,5 +72,26 @@ export const useQuiz = ({ id }: UseQuiz = {}) => {
     rightAnswers,
     registerAnswer,
     progress,
+  }
+}
+
+export const useActionHandlers = () => {
+  const ongoingQuiz = useStoreState((store) => store.ongoingQuiz)
+  const setOngoingQuiz = useStoreActions((store) => store.setOngoingQuiz)
+  const history = useHistory()
+
+  const startQuiz = () => {
+    const quiz = shortId.generate()
+    setOngoingQuiz(quiz)
+    history.push(`/quiz/${quiz}`)
+  }
+
+  const resumeQuiz = () => {
+    history.push(`/quiz/${ongoingQuiz}`)
+  }
+
+  return {
+    startQuiz,
+    resumeQuiz,
   }
 }

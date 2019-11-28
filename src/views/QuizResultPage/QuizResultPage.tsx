@@ -1,16 +1,14 @@
 import React from 'react'
-import shortId from 'short-uuid'
 import { useParams, Redirect, useHistory } from 'react-router-dom'
-import { useQuiz } from 'hooks'
+import { useQuiz, useActionHandlers } from 'hooks'
 import { Box, Text, Button } from '@chakra-ui/core'
-import { useStoreActions } from 'store/store'
 import QuizResultDetail from './components/QuizResultDetail'
 
 const QuizResultPage = () => {
   const { id } = useParams<{ id: string }>()
   const quiz = useQuiz({ id })
-  const setOngoingQuiz = useStoreActions((store) => store.setOngoingQuiz)
   const history = useHistory()
+  const { startQuiz } = useActionHandlers()
 
   if (!quiz.isValid) {
     return <Redirect to="/" />
@@ -18,12 +16,6 @@ const QuizResultPage = () => {
 
   if (!quiz.isFinished) {
     return <Redirect to={`/quiz/${id}`} />
-  }
-
-  const playAgain = () => {
-    const quiz = shortId.generate()
-    setOngoingQuiz(quiz)
-    history.push(`/quiz/${quiz}`)
   }
 
   return (
@@ -42,7 +34,7 @@ const QuizResultPage = () => {
       </Text>
       <QuizResultDetail questions={quiz.questions} />
       <Box mt={16} display="flex" justifyContent="center">
-        <Button width="100%" variantColor="purple" onClick={playAgain}>
+        <Button width="100%" variantColor="purple" onClick={startQuiz}>
           Play again
         </Button>
         <Button

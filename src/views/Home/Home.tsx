@@ -2,14 +2,24 @@ import React from 'react'
 import { Box } from '@chakra-ui/core'
 
 import Hero from './components/Hero'
-import CallToActions from './components/CallToActions'
-import { useCallToActionHandler } from './hooks'
-import pick from 'lodash/pick'
+import CallToActions, { Action } from './components/CallToActions'
 import { useStoreState } from 'store/store'
+import { useActionHandlers } from 'hooks'
 
 const Home = () => {
-  const { ongoingQuiz } = useStoreState((store) => pick(store, ['ongoingQuiz']))
-  const handleAction = useCallToActionHandler({ ongoingQuiz })
+  const ongoingQuiz = useStoreState((store) => store.ongoingQuiz)
+  const { startQuiz, resumeQuiz } = useActionHandlers()
+
+  const handleAction = React.useCallback(
+    (action: Action) => {
+      if (action === Action.TakeQuiz) {
+        startQuiz()
+      } else if (action === Action.ContinueQuiz) {
+        resumeQuiz()
+      }
+    },
+    [resumeQuiz, startQuiz]
+  )
 
   return (
     <Box
