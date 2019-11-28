@@ -16,3 +16,7 @@ Try it out: start a quiz and then navigate to the home page. You'll find the opt
 ### Answer slider
 
 After you complete a trivia, there's a nice cool slider in the right hand side of the home screen -- or as the background if you're on mobile!
+
+## Known bugs
+
+The buttons are off because of the address bar on mobile... Fixing it.
