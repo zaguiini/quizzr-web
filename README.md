@@ -2,7 +2,7 @@
 
 A simple trivia app for the web.
 
-It's powered by React (+ TypeScript) and Chakra UI, one of the components library that I like the most!
+It's powered by React (+ TypeScript) and [Chakra UI](https://chakra-ui.com/), one of the components library that I like the most!
 
 You can check the full stack opening [package.json](./package.json)
 
