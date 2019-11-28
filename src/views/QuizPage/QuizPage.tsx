@@ -2,9 +2,11 @@ import React from 'react'
 import { useStoreActions, useStoreState } from 'store/store'
 import { useParams } from 'react-router-dom'
 import get from 'lodash/get'
+import noop from 'lodash/noop'
 import Placeholder from 'components/Placeholder'
 import Information from 'components/Information'
 import Quiz from './components/Quiz/Quiz'
+import { Button } from '@chakra-ui/core'
 
 const QuizPage = () => {
   const { id } = useParams<{ id: string }>()
@@ -13,9 +15,14 @@ const QuizPage = () => {
   }))
 
   const fetchQuiz = useStoreActions((actions) => actions.quizzes.fetchQuiz)
+  const cancel = React.useRef(noop)
 
   React.useEffect(() => {
-    return fetchQuiz({ id })
+    cancel.current = fetchQuiz({ id })
+
+    return () => {
+      cancel.current()
+    }
   }, [fetchQuiz, id])
 
   const hasData = get(quiz, 'data.questions', []).length
@@ -29,8 +36,19 @@ const QuizPage = () => {
       {hasData ? (
         <Quiz />
       ) : (
-        <Information>
-          Something wrong happened. Try refreshing your page!
+        <Information
+          secondary={
+            <Button
+              variantColor="purple"
+              onClick={() => {
+                cancel.current = fetchQuiz({ id })
+              }}
+            >
+              Try again
+            </Button>
+          }
+        >
+          Something wrong happened.
         </Information>
       )}
     </Placeholder>

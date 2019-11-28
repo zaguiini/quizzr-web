@@ -3,7 +3,6 @@ import { transformQuizQuestion, fetchQuiz } from '../service'
 import { createStore, createTypedHooks, action, thunk } from 'easy-peasy'
 import axios from 'axios'
 import get from 'lodash/get'
-import noop from 'lodash/noop'
 import setWith from 'lodash/setWith'
 import map from 'lodash/map'
 import { persistStore, persistReducer } from 'redux-persist'
@@ -37,13 +36,7 @@ const model: StoreModel = {
       setWith(state, `history.${id}.isLoading`, isLoading, Object)
     }),
 
-    fetchQuiz: thunk((dispatch, { id }, { getState }) => {
-      const { history } = getState()
-
-      if (get(history, id)) {
-        return noop
-      }
-
+    fetchQuiz: thunk((dispatch, { id }) => {
       dispatch.setQuiz({
         id,
         data: {
@@ -88,6 +81,7 @@ const model: StoreModel = {
 
       return () => {
         cancellationToken.cancel()
+        dispatch.deleteQuiz({ id })
       }
     }),
   },
