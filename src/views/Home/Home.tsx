@@ -13,7 +13,7 @@ const Home = () => {
 
   return (
     <Box
-      padding={32}
+      padding={[8, 32]}
       flex={1}
       display="flex"
       justifyContent="center"

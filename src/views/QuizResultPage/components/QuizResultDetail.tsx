@@ -12,7 +12,7 @@ const QuizResultDetail = ({ questions }: { questions: QuizQuestion[] }) => {
 
         return (
           <Box
-            fontSize={22}
+            fontSize={[16, 22]}
             mt={index !== 0 ? 6 : 0}
             as="li"
             display="flex"

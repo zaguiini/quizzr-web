@@ -2,8 +2,8 @@ import React from 'react'
 import { useStoreActions, useStoreState } from 'store/store'
 import { useParams } from 'react-router-dom'
 import get from 'lodash/get'
-import ErrorView from 'components/ErrorView'
 import Placeholder from 'components/Placeholder'
+import Information from 'components/Information'
 import Quiz from './components/Quiz/Quiz'
 
 const QuizPage = () => {
@@ -23,10 +23,15 @@ const QuizPage = () => {
   return (
     <Placeholder
       ready={!get(quiz, 'isLoading', true)}
-      fallback="Loading questions..."
-      delay={500}
+      fallback={<Information>Loading questions...</Information>}
     >
-      {hasData ? <Quiz /> : <ErrorView />}
+      {hasData ? (
+        <Quiz />
+      ) : (
+        <Information>
+          Something wrong happened. Try refreshing your page!
+        </Information>
+      )}
     </Placeholder>
   )
 }

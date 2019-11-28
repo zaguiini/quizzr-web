@@ -8,29 +8,39 @@ interface QuestionProps {
 }
 
 const buttonProps = {
-  width: 200,
-  height: 100,
+  width: ['auto', 200],
+  height: [50, 100],
+  flex: 1,
   opacity: 0.7,
   _hover: {
     opacity: 1,
   },
-  fontSize: 32,
+  fontSize: [24, 32],
 }
 
 const Question = ({ onAnswer, question }: QuestionProps) => {
   return (
     <Box
-      padding={16}
+      padding={[4, 16]}
       display="flex"
       flexDirection="column"
       flex={1}
       alignItems="center"
       justifyContent="center"
     >
-      <Text fontSize="4xl" textAlign="center" userSelect="none">
-        <Interweave content={question} />
-      </Text>
-      <Box mt={16}>
+      <Box display="flex" flex={1} alignItems="center">
+        <Text fontSize="4xl" textAlign="center" userSelect="none">
+          <Interweave content={question} />
+        </Text>
+      </Box>
+      <Box
+        flexShrink={0}
+        display="grid"
+        width={['100%', 'auto']}
+        mt={['auto', 16]}
+        gridColumnGap={8}
+        gridTemplateColumns="1fr 1fr"
+      >
         <Button
           {...buttonProps}
           variantColor="green"
@@ -41,7 +51,6 @@ const Question = ({ onAnswer, question }: QuestionProps) => {
         <Button
           {...buttonProps}
           variantColor="red"
-          ml={16}
           onClick={() => onAnswer(false)}
         >
           FALSE

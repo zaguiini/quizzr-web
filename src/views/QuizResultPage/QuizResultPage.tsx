@@ -28,26 +28,26 @@ const QuizResultPage = () => {
 
   return (
     <Box
-      paddingX={32}
+      paddingX={[8, 32]}
       paddingY={16}
       flex={1}
       display="flex"
       flexDirection="column"
     >
-      <Text flexShrink={0} as="h1" fontSize="6xl">
+      <Text flexShrink={0} as="h1" fontSize={['3xl', '6xl']}>
         You scored{' '}
         <Text as="span" fontWeight="bold" color="green.400">
           {quiz.rightAnswers}/{quiz.totalQuestions}
         </Text>
       </Text>
       <QuizResultDetail questions={quiz.questions} />
-      <Box flexShrink={0} mt={16} display="flex" justifyContent="center">
-        <Button size="lg" variantColor="purple" onClick={playAgain}>
+      <Box mt={16} display="flex" justifyContent="center">
+        <Button width="100%" variantColor="purple" onClick={playAgain}>
           Play again
         </Button>
         <Button
           ml={4}
-          size="lg"
+          width="100%"
           variant="outline"
           variantColor="purple"
           onClick={() => history.push('/')}
