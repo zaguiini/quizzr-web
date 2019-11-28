@@ -1,6 +1,5 @@
 import React from 'react'
-import { Box, Button, Text } from '@chakra-ui/core'
-import { QuizDifficulty } from 'service'
+import { Box, Button } from '@chakra-ui/core'
 
 export enum Action {
   TakeQuiz = 'TAKE_QUIZ',
@@ -9,20 +8,20 @@ export enum Action {
 
 interface CallToActionsProps {
   onAction: (action: Action) => void
-  currentDifficulty: QuizDifficulty
   hasOngoingQuiz: boolean
 }
 
-const CallToActions = ({
-  onAction,
-  currentDifficulty,
-  hasOngoingQuiz,
-}: CallToActionsProps) => {
+const CallToActions = ({ onAction, hasOngoingQuiz }: CallToActionsProps) => {
   return (
     <>
       {hasOngoingQuiz && (
         <Box display="flex" alignItems="center" marginRight={2}>
-          <Button size="lg" variant="outline" variantColor="purple">
+          <Button
+            size="lg"
+            variant="outline"
+            variantColor="purple"
+            onClick={() => onAction(Action.ContinueQuiz)}
+          >
             Continue current quiz
           </Button>
         </Box>
@@ -35,9 +34,6 @@ const CallToActions = ({
         >
           Take quiz
         </Button>
-        <Text marginLeft={4} color="gray.500">
-          Current difficulty: <strong>{currentDifficulty}</strong>
-        </Text>
       </Box>
     </>
   )

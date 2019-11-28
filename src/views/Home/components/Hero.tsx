@@ -12,6 +12,8 @@ const Hero = () => {
       </Text>
       <Text color="gray.500" fontSize="4xl">
         It&apos;s time to test your knowledge!
+        <br />
+        <strong>Can you score 100%?</strong>
       </Text>
     </Box>
   )

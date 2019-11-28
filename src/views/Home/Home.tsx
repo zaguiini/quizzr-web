@@ -1,37 +1,15 @@
 import React from 'react'
 import { Box } from '@chakra-ui/core'
-import { useHistory } from 'react-router-dom'
-import shortId from 'short-uuid'
-import { useStoreState, useStoreActions } from 'store'
 
 import Hero from './components/Hero'
-import CallToActions, { Action } from './components/CallToActions'
+import CallToActions from './components/CallToActions'
+import { useCallToActionHandler } from './hooks'
+import pick from 'lodash/pick'
+import { useStoreState } from 'store/store'
 
 const Home = () => {
-  const { currentQuizDifficulty, ongoingQuiz } = useStoreState(
-    ({ currentQuizDifficulty, ongoingQuiz }) => ({
-      currentQuizDifficulty,
-      ongoingQuiz,
-    })
-  )
-
-  const setOngoingQuiz = useStoreActions((store) => store.setOngoingQuiz)
-  const history = useHistory()
-
-  const handleAction = React.useCallback(
-    (action: Action) => {
-      let quiz = ''
-      if (action === Action.TakeQuiz || !ongoingQuiz) {
-        quiz = shortId.generate()
-      } else if (action === Action.ContinueQuiz) {
-        quiz = ongoingQuiz
-      }
-
-      setOngoingQuiz(quiz)
-      history.push(`/${quiz}`)
-    },
-    [history, ongoingQuiz, setOngoingQuiz]
-  )
+  const { ongoingQuiz } = useStoreState((store) => pick(store, ['ongoingQuiz']))
+  const handleAction = useCallToActionHandler({ ongoingQuiz })
 
   return (
     <Box
@@ -43,11 +21,7 @@ const Home = () => {
     >
       <Hero />
       <Box marginTop={12} display="flex">
-        <CallToActions
-          onAction={handleAction}
-          currentDifficulty={currentQuizDifficulty}
-          hasOngoingQuiz={!!ongoingQuiz}
-        />
+        <CallToActions onAction={handleAction} hasOngoingQuiz={!!ongoingQuiz} />
       </Box>
     </Box>
   )

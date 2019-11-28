@@ -1,14 +1,7 @@
 import shortId from 'short-uuid'
 import axios, { CancelTokenSource } from 'axios'
 
-export enum QuizDifficulty {
-  EASY = 'easy',
-  MEDIUM = 'medium',
-  HARD = 'hard',
-}
-
 interface FetchQuiz {
-  difficulty: QuizDifficulty
   cancellationToken: CancelTokenSource
 }
 
@@ -31,11 +24,8 @@ export const transformQuizQuestion = ({
   correctAnswer: correct_answer === 'True',
 })
 
-export const fetchQuiz = async ({
-  difficulty,
-  cancellationToken,
-}: FetchQuiz) => {
-  const url = `${process.env.REACT_APP_API_URL}?amount=10&difficulty=${difficulty}&type=boolean`
+export const fetchQuiz = async ({ cancellationToken }: FetchQuiz) => {
+  const url = `${process.env.REACT_APP_API_URL}?amount=10&difficulty=easy&type=boolean`
   const { data } = await axios.get<APIResponse>(url, {
     cancelToken: cancellationToken.token,
   })
