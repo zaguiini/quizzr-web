@@ -1,6 +1,6 @@
-# Quizzr
+# [Quizzr](https://quizzr.surge.sh)
 
-A simple trivia app for the web.
+A simple trivia app for the web. [Play it now!](https://quizzr.surge.sh)
 
 It's powered by React (+ TypeScript) and [Chakra UI](https://chakra-ui.com/), one of the components library that I like the most!
 
@@ -16,7 +16,3 @@ Try it out: start a quiz and then navigate to the home page. You'll find the opt
 ### Answer slider
 
 After you complete a trivia, there's a nice cool slider in the right hand side of the home screen -- or as the background if you're on mobile!
-
-## Known bugs
-
-The buttons are off because of the address bar on mobile... Fixing it.
