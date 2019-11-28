@@ -10,6 +10,7 @@ const Loading = ({ children, secondary = null }: LoadingProps) => {
   return (
     <Box
       display="flex"
+      padding={[8, 32]}
       flex={1}
       alignItems="center"
       flexDirection="column"
