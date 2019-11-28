@@ -1,10 +1,11 @@
 import React from 'react'
 import { Box } from '@chakra-ui/core'
+import { useStoreState } from 'store/store'
+import { useActionHandlers } from 'hooks'
 
 import Hero from './components/Hero'
 import CallToActions, { Action } from './components/CallToActions'
-import { useStoreState } from 'store/store'
-import { useActionHandlers } from 'hooks'
+import HistoryQuestionsSlider from './components/HistoryQuestionsSlider'
 
 const Home = () => {
   const currentQuiz = useStoreState((store) => store.currentQuiz)
@@ -22,18 +23,25 @@ const Home = () => {
   )
 
   return (
-    <Box
-      padding={[8, 32]}
-      flex={1}
-      display="flex"
-      justifyContent="center"
-      flexDirection="column"
-    >
-      <Hero />
-      <Box marginTop={12} display="flex">
-        <CallToActions onAction={handleAction} hasOngoingQuiz={!!currentQuiz} />
+    <>
+      <Box
+        zIndex={2}
+        padding={[8, 32]}
+        flex={1}
+        display="flex"
+        justifyContent="center"
+        flexDirection="column"
+      >
+        <Hero />
+        <Box marginTop={12} display="flex">
+          <CallToActions
+            onAction={handleAction}
+            hasOngoingQuiz={!!currentQuiz}
+          />
+        </Box>
       </Box>
-    </Box>
+      <HistoryQuestionsSlider />
+    </>
   )
 }
 
