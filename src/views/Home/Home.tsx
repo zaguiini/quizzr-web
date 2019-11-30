@@ -33,7 +33,7 @@ const Home = () => {
         flexDirection="column"
       >
         <Hero />
-        <Box marginTop={12} display="flex">
+        <Box marginTop={12} display="flex" flexDirection={['column', 'row']}>
           <CallToActions
             onAction={handleAction}
             hasOngoingQuiz={!!currentQuiz}

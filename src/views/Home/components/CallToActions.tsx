@@ -15,7 +15,12 @@ const CallToActions = ({ onAction, hasOngoingQuiz }: CallToActionsProps) => {
   return (
     <>
       {hasOngoingQuiz && (
-        <Box display="flex" alignItems="center" marginRight={2}>
+        <Box
+          display="flex"
+          alignItems="center"
+          marginBottom={[2, 0]}
+          marginRight={[0, 2]}
+        >
           <Button
             size="lg"
             variant="outline"
