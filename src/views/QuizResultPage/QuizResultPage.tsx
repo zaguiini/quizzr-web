@@ -28,7 +28,7 @@ const QuizResultPage = () => {
     >
       <Text flexShrink={0} as="h1" fontSize={['3xl', '6xl']}>
         You scored{' '}
-        <Text as="span" fontWeight="bold" color="green.400">
+        <Text as="span" fontWeight="bold">
           {quiz.rightAnswers}/{quiz.totalQuestions}
         </Text>
       </Text>
